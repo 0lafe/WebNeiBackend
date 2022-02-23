@@ -27,4 +27,24 @@ class RecipeReader
         end
     end
 
+    def self.include_item(params)
+        offset = 0
+        if params[:offset]
+            offset = params[:offset]
+        end
+        if params[:output]
+            return Recipe.get_by_output(params[:item_id], params[:id]).limit(10).offset(offset)
+        else
+            return Recipe.get_by_input(params[:item_id], params[:id]).limit(10).offset(offset)
+        end
+    end
+
+    def self.by_handler(params)
+        offset = 0
+        if params[:offset]
+            offset = params[:offset]
+        end
+        RecipeType.find(params[:id]).recipes.limit(10).offset(offset)
+    end
+
 end

@@ -2,7 +2,7 @@ require 'fastimage'
 
 class GUIHandler 
 
-    GUI_PATH = ".Data-dumps/GT Mega/guis/*"
+    GUI_PATH = ".Data-dumps/#{ENV["CURRENT_MODPACK"]}/guis/*"
     SEPARATOR = "@@"
     NEW_WIDTH = 1200
 

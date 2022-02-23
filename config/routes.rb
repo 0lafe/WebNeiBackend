@@ -3,8 +3,14 @@ Rails.application.routes.draw do
   root "homes#index"
 
   namespace :api do
-    resources :recipes, only: [:index, :show]
+    namespace :recipes do
+      resources :items, only: [:show] do
+        resources :recipe_types, only: [:show]
+      end
+      resources :recipe_types, only: [:show]
+    end
     resources :items, only: [:show]
+    resources :recipes, only: [:index, :show]
     resources :recipe_types, only: [:show]
   end
 

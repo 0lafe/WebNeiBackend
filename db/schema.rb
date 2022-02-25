@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 2022_01_02_051622) do
     t.integer "rely"
     t.bigint "recipe_id"
     t.bigint "item_id"
+    t.bigint "recipe_type_id"
     t.index ["item_id"], name: "index_inputs_on_item_id"
     t.index ["recipe_id"], name: "index_inputs_on_recipe_id"
+    t.index ["recipe_type_id"], name: "index_inputs_on_recipe_type_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -40,8 +42,10 @@ ActiveRecord::Schema.define(version: 2022_01_02_051622) do
     t.integer "rely"
     t.bigint "recipe_id"
     t.bigint "item_id"
+    t.bigint "recipe_type_id"
     t.index ["item_id"], name: "index_outputs_on_item_id"
     t.index ["recipe_id"], name: "index_outputs_on_recipe_id"
+    t.index ["recipe_type_id"], name: "index_outputs_on_recipe_type_id"
   end
 
   create_table "recipe_types", force: :cascade do |t|

@@ -1,8 +1,12 @@
 class Api::RecipeTypesController < ApplicationController
 
+    def index
+        
+        render json: {handlers: handlers}
+    end
+
     def show
-        aType = RecipeType.find(params[:id])
-        render json: { name: aType.name, quantity: aType.recipes.count, gui_url: aType.gui_url, scale: aType.scale }
+        render json: RecipeType.find(params[:id])
     end
 
 end

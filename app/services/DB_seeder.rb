@@ -1,7 +1,7 @@
 class DBSeeder
 
-    RECIPE_PATH = ".Data-dumps/GT Mega/recipes.json"
-    ITEM_PATH = ".Data-dumps/GT Mega/itemlist.json"
+    RECIPE_PATH = ".Data-dumps/#{ENV["CURRENT_MODPACK"]}/recipes.json"
+    ITEM_PATH = ".Data-dumps/#{ENV["CURRENT_MODPACK"]}/itemlist.json"
 
     def self.test
         json = JSON.parse(File.read(RECIPE_PATH))
@@ -59,7 +59,8 @@ class DBSeeder
                         item_id: items["#{anItem["modid"]}.#{anItem["id"]}:#{anItem["metadata"]}"][:ind],
                         quantity: input["items"][0]["count"],
                         relx: input["relx"],
-                        rely: input["rely"]
+                        rely: input["rely"],
+                        recipe_type_id: type_index
                     }
                 }
 
@@ -72,7 +73,8 @@ class DBSeeder
                         item_id: items["#{anItem["modid"]}.#{anItem["id"]}:#{anItem["metadata"]}"][:ind],
                         quantity: output["items"][0]["count"],
                         relx: output["relx"],
-                        rely: output["rely"]
+                        rely: output["rely"],
+                        recipe_type_id: type_index
                     }
                 }
 

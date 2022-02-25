@@ -6,6 +6,7 @@ class CreateOutputs < ActiveRecord::Migration[6.1]
       t.integer :rely
       t.belongs_to :recipe
       t.belongs_to :item
+      t.belongs_to :recipe_type
     end
   end
 end

@@ -1,8 +1,7 @@
 class Api::RecipeTypesController < ApplicationController
 
     def index
-        
-        render json: {handlers: handlers}
+        render json: RecipeType.all.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC')
     end
 
     def show

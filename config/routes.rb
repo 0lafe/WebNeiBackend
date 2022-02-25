@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
     resources :items, only: [:show]
     resources :recipes, only: [:index, :show]
-    resources :recipe_types, only: [:show]
+    resources :recipe_types, only: [:index, :show]
   end
 
   get "*path", to: "homes#index"

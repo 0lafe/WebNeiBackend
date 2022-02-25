@@ -4,4 +4,5 @@ class RecipeTypeSerializer < ActiveModel::Serializer
   def recipe_quantity
     object.recipes.count
   end
+  
 end

@@ -6,9 +6,9 @@ class Api::Recipes::RecipeTypesController < ApplicationController
 
     def show
         if params[:item_id]
-            render json: RecipeReader.include_item(params)
+            render json: RecipeReader.include_item(params), include: ['inputs.item', 'outputs.item']
         else
-            render json: RecipeReader.by_handler(params)
+            render json: RecipeReader.by_handler(params), include: ['inputs.item', 'outputs.item']
         end
     end
 

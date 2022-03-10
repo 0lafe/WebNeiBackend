@@ -1,4 +1,6 @@
-# WiP Backend
+# WebNei
+
+This is the WiP backend for a web client based form of NEI. The idea is to port much functionality from in game to a web app you can view at anytime anywhere. The end goal is to integrate this recipe sorting system with a calculator for long processing chains
 
 # Data dump locations
 

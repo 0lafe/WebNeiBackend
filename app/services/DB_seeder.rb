@@ -138,7 +138,7 @@ class DBSeeder
             if items["#{item["item"]["modid"]}.#{item["item"]["id"]}:#{item["item"]["metadata"]}"]
                 items["#{item["item"]["modid"]}.#{item["item"]["id"]}:#{item["item"]["metadata"]}"][:localized_name] = item["name"]
                 if icon_names[item["name"]]
-                    items["#{item["item"]["modid"]}.#{item["item"]["id"]}:#{item["item"]["metadata"]}"][:icon_url] = "https://s3.us-east-2.amazonaws.com/item-icons-dev/#{item["name"]}.png"
+                    items["#{item["item"]["modid"]}.#{item["item"]["id"]}:#{item["item"]["metadata"]}"][:icon_url] = "https://s3.us-east-2.amazonaws.com/item-icons-dev/icons/#{item["name"]}.png"
                 end
             end
         }

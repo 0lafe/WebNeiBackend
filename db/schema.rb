@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2022_01_02_051622) do
     t.string "modID", null: false
     t.string "unlocalized_name", null: false
     t.string "gui_url"
-    t.string "icon_name"
+    t.string "icon_url"
     t.integer "scale"
   end
 

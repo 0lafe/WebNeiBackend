@@ -1,6 +1,6 @@
 class ItemRecipesSerializer < ActiveModel::Serializer
 
-    attributes :id, :input_handlers, :output_handlers, :has_inputs, :has_outputs
+    attributes :id, :localized_name, :input_handlers, :output_handlers, :has_inputs, :has_outputs
 
     def input_handlers
         output = []

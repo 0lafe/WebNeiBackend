@@ -5,7 +5,7 @@ class CreateRecipeTypes < ActiveRecord::Migration[6.1]
       t.string :modID, null: false
       t.string :unlocalized_name, null: false
       t.string :gui_url
-      t.string :icon_name
+      t.string :icon_url
       t.integer :scale
     end
   end

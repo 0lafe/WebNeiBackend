@@ -48,3 +48,6 @@ gem 'ruby-progressbar', '~> 1.11'
 gem 'activerecord-import', '~> 1.2'
 gem 'fastimage'
 gem 'rack-cors'
+gem "fog-aws"
+gem "carrierwave"
+gem "aws-sdk-s3"

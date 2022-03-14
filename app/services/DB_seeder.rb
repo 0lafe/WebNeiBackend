@@ -2,6 +2,7 @@ class DBSeeder
 
     RECIPE_PATH = ".Data-dumps/#{ENV["CURRENT_MODPACK"]}/recipes.json"
     ITEM_PATH = ".Data-dumps/#{ENV["CURRENT_MODPACK"]}/itemlist.json"
+    ICON_PATH = ".Data-dumps/#{ENV["CURRENT_MODPACK"]}/itempanel_icons/*"
 
     def self.test
         json = JSON.parse(File.read(RECIPE_PATH))
@@ -122,7 +123,8 @@ class DBSeeder
                 modid: modid,
                 ind: item_index,
                 unlocalized_name: "#{modid}.#{id}:#{metadata}",
-                localized_name: nil
+                localized_name: nil,
+                icon_url: nil
             }
             item_index += 1
         end
@@ -130,13 +132,26 @@ class DBSeeder
     end
 
     def self.localize_names(items)
+        icon_names = get_icon_names
         item_json = JSON.parse(File.read(ITEM_PATH))
         item_json["items"].each { |item|
             if items["#{item["item"]["modid"]}.#{item["item"]["id"]}:#{item["item"]["metadata"]}"]
                 items["#{item["item"]["modid"]}.#{item["item"]["id"]}:#{item["item"]["metadata"]}"][:localized_name] = item["name"]
+                if icon_names[item["name"]]
+                    items["#{item["item"]["modid"]}.#{item["item"]["id"]}:#{item["item"]["metadata"]}"][:icon_url] = "https://s3.us-east-2.amazonaws.com/item-icons-dev/#{item["name"]}.png"
+                end
             end
         }
         return items
+    end
+
+    def self.get_icon_names
+        output = {}
+        Dir[ICON_PATH].each do |path|
+            localized_name = path[path.rindex("/") + 1..path.rindex(".") - 1]
+            output[localized_name] = true
+        end
+        output
     end
 
     def self.write_to_db(data)

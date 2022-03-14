@@ -6,6 +6,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.string :modid, null: false
       t.string :localized_name
       t.string :unlocalized_name
+      t.string :icon_url
       t.integer :ind
     end
   end

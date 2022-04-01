@@ -18,14 +18,6 @@ class DBSeeder
         puts "That took a whopping #{finish - start}s!"
     end
 
-    def self.clear_db
-        RecipeType.delete_all
-        Recipe.delete_all
-        Input.delete_all
-        Output.delete_all
-        Item.delete_all
-    end
-
     def self.store_items(json)
         items = {}
         inputs = []
@@ -35,25 +27,15 @@ class DBSeeder
         type_index = 1
         recipe_index = 1
         item_index = 1
-        json["h"].each { |handler|
-            recipe_types << {name: handler["hn"], modID: handler["hi"], unlocalized_name: "#{handler["hi"]}@@#{handler["hn"]}"}
+        json["handlers"].each { |handler|
+            recipe_types << make_recipe_type_params(handler)
             handler["r"].each_with_index { |recipe, index|
-                power = nil
-                duration = nil
-                if recipe["e"]
-                    power = recipe["e"]["EUrate"]
-                    duration = recipe["e"]["duration"]
-                end
-
-                recipes << { 
-                    recipe_type_id: type_index,
-                    power: power,
-                    duration: duration
-                }
-
-                this_input = get_inputs(recipe)
-                this_input.each { |input|
+                recipes << make_recipe_params(recipe, type_index)
+                get_inputs(recipe).each { |input|
                     anItem = input["items"][0]["item"]
+                    if input["items"][0]["name"]
+                        binding.pry
+                    end
                     item_index = create_items(items, item_index, anItem)
                     inputs << {
                         recipe_id: recipe_index,
@@ -65,8 +47,7 @@ class DBSeeder
                     }
                 }
 
-                this_output = get_outputs(recipe)
-                this_output.each { |output|
+                get_outputs(recipe).each { |output|
                     anItem = output["items"][0]["item"]
                     item_index = create_items(items, item_index, anItem)
                     outputs << {
@@ -91,7 +72,29 @@ class DBSeeder
             inputs: inputs,
             outputs: outputs,
             recipe_types: recipe_types
-            })
+        })
+    end
+
+    def self.make_recipe_type_params(handler)
+        return {
+            name: handler["hn"],
+            modID: handler["hi"],
+            unlocalized_name: "#{handler["hi"]}@@#{handler["hn"]}"
+        }
+    end
+
+    def self.make_recipe_params(recipe, type_index)
+        power = nil
+        duration = nil
+        if recipe["e"]
+            power = recipe["e"]["EUrate"]
+            duration = recipe["e"]["duration"]
+        end
+        return { 
+            recipe_type_id: type_index,
+            power: power,
+            duration: duration
+        }
     end
 
     def self.get_inputs(recipe)
@@ -116,6 +119,7 @@ class DBSeeder
         id = aItem["id"]
         modid = aItem["modid"]
         metadata = aItem["metadata"]
+        localized_name = aItem["localized_name"]
         if !items["#{modid}.#{id}:#{metadata}"]
             items["#{modid}.#{id}:#{metadata}"] = {
                 item_id: id,
@@ -123,7 +127,7 @@ class DBSeeder
                 modid: modid,
                 ind: item_index,
                 unlocalized_name: "#{modid}.#{id}:#{metadata}",
-                localized_name: nil,
+                localized_name: localized_name,
                 icon_url: nil
             }
             item_index += 1

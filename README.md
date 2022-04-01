@@ -11,7 +11,7 @@ Drop this file into your root directory of this git project. You will need to un
 
 Set the `CURRENT_MODPACK` variable in your .env file to the folder of the modpack you want to develop for. 
 
-run `rake recipes:store` and `rake recipes:gui`
+run `rake recipes:seed`
 
 `.Data-dumps/MODPACK/recipes.json`
 `.Data-dumps/MODPACK/itemlist.json`

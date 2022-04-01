@@ -33,9 +33,9 @@ class RecipeReader
             offset = params[:offset]
         end
         if params[:output]
-            return Recipe.get_by_output(params[:item_id], params[:id]).limit(10).offset(offset)
+            return Recipe.get_by_output(params[:item_id], params[:id]).limit(2).offset(offset)
         else
-            return Recipe.get_by_input(params[:item_id], params[:id]).limit(10).offset(offset)
+            return Recipe.get_by_input(params[:item_id], params[:id]).limit(2).offset(offset)
         end
     end
 
@@ -44,7 +44,7 @@ class RecipeReader
         if params[:offset]
             offset = params[:offset]
         end
-        RecipeType.find(params[:id]).recipes.limit(10).offset(offset)
+        RecipeType.find(params[:id]).recipes.limit(2).offset(offset)
     end
 
 end

@@ -19,7 +19,6 @@ namespace :recipes do |args|
     task :seed => [ :environment ] do
         DBSeeder.main
         GUIHandler.handle
-        # ItemIconLinker.link_images
     end
 
     task :upload => [ :environment ] do
